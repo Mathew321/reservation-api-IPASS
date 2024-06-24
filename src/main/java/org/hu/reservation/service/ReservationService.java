@@ -33,7 +33,7 @@ public class ReservationService {
         List<Table> tables = checkAvailability(reservationRequest);
 
         if (tables.isEmpty()){
-            return new Response<>(new Error("Booking is not available. All reserved."), null);
+            return new Response<>(new Error("Booking is not available. Not enough seats."), null);
         }
 
         int sum = tables.stream().mapToInt(Table::getSeatingCapacity).sum();

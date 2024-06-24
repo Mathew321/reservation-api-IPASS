@@ -24,7 +24,7 @@ public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 
-    @PostMapping("/make")
+    @PostMapping
     public ResponseEntity<?> makeReservation(@RequestBody @Valid ReservationRequest reservationRequest) {
         try {
             Response<Error, Token> response = reservationService.makeReservation(reservationRequest);
