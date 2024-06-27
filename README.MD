@@ -4,4 +4,4 @@
 2. Run the command inside the repo  `docker-compose up -d`
 
 Start an application in IntelliJ
-
+ 

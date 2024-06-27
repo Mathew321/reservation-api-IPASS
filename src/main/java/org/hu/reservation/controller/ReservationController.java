@@ -25,7 +25,7 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @PostMapping
-    public ResponseEntity<?> makeReservation(@RequestBody @Valid ReservationRequest reservationRequest) {
+    public ResponseEntity<?> createReservation(@RequestBody @Valid ReservationRequest reservationRequest) {
         try {
             Response<Error, Token> response = reservationService.makeReservation(reservationRequest);
             if (response.getError() != null) {
@@ -38,4 +38,20 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Error("Server unavailable"));
         }
     }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteReservation(@RequestParam String reservationToken) {
+        try {
+            Response<Error, Void> response = reservationService.deleteReservation(reservationToken);
+            if (response.getError() != null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getError());
+            }
+            return ResponseEntity.noContent().build(); // 204 No Content
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Error("Server unavailable"));
+        }
+    }
+
+
 }
