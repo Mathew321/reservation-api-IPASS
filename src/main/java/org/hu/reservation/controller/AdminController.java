@@ -33,7 +33,7 @@ public class AdminController {
 
     @GetMapping("/reservations")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Object> getReservations(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate reservationDate) {
+    public ResponseEntity<?> getReservations(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate reservationDate) {
         try {
             List<Reservation> reservations = reservationService.getReservationsByDate(reservationDate);
             return ResponseEntity.ok(reservations);
@@ -45,9 +45,11 @@ public class AdminController {
 
     @GetMapping("/reservations/tables")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Object> getAvailableTables(@RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
+    public ResponseEntity<?> getAvailableTables(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
         try {
+            logger.info("Received date: " + date);
             AvailableTablesResponse response = reservationService.getAvailableTables(date);
+            logger.info("Response: " + response);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

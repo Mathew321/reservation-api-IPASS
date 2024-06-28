@@ -34,7 +34,7 @@ public class StaffController {
             return ResponseEntity.status(HttpStatus.CREATED).body(new StaffId(service.addStaffMemeber(staffInfo)));
         } catch (Exception e){
             logger.error(e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Error("Server unavailable"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Error("Server unavailable", e.getMessage()));
         }
     }
 

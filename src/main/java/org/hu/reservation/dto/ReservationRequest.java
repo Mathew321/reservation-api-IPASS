@@ -24,6 +24,17 @@ public class ReservationRequest {
     @NotBlank(message = "Name is required")
     private String name;
 
+    public ReservationRequest() {
+    }
+
+    public ReservationRequest(LocalDateTime date, Integer persons, String email, String phone, String name) {
+        this.date = date;
+        this.persons = persons;
+        this.email = email;
+        this.phone = phone;
+        this.name = name;
+    }
+
     public LocalDateTime getDate() {
         return date;
     }
