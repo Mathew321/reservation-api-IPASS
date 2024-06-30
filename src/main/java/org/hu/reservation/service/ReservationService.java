@@ -14,9 +14,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.TemporalUnit;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationService {
@@ -27,8 +26,8 @@ public class ReservationService {
     @Autowired
     private TableRepository tableRepository;
 
-    // @Autowired
-    // private EmailService emailService;
+     @Autowired
+     private EmailService emailService;
 
     public Response<Error, Token> makeReservation(ReservationRequest reservationRequest) {
         List<Table> tables = checkAvailability(reservationRequest);
@@ -58,6 +57,9 @@ public class ReservationService {
             reservationRepository.save(reservation);
             requestedSeats -= table.getSeatingCapacity();
         }
+
+        emailService.sendEmail(reservationRequest.getEmail(), token);
+
         return new Response<>(null, new Token(token));
     }
 
@@ -78,8 +80,20 @@ public class ReservationService {
     public List<Reservation> getReservationsByDate(LocalDate reservationDate) {
         LocalDateTime startOfDay = reservationDate.atStartOfDay();
         LocalDateTime endOfDay = reservationDate.atTime(LocalTime.MAX);
-        return reservationRepository.findByReservationTimeBetween(startOfDay, endOfDay);
+        return getDistinctReservationsByToken(reservationRepository.findByReservationTimeBetween(startOfDay, endOfDay));
     }
+
+    private List<Reservation> getDistinctReservationsByToken(List<Reservation> reservations) {
+        Map<String, Reservation> reservationMap = reservations.stream()
+                .collect(Collectors.toMap(
+                        Reservation::getReservationToken,
+                        reservation -> {reservation.setTable(null); return reservation;},
+                        (existing, replacement) -> existing // Choose which reservation to keep in case of conflicts
+                ));
+
+        return new ArrayList<>(reservationMap.values());
+    }
+
 
     private int countAvailableTables(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         List<Reservation> reservations = reservationRepository.findByReservationTimeBetween(startDateTime, endDateTime);

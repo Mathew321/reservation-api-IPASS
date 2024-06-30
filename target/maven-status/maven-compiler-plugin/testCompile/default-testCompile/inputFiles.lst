@@ -1,9 +1,0 @@
-/home/jack/reservation-api/src/test/java/org/hu/reservation/SecurityTestConfig.java
-/home/jack/reservation-api/src/test/java/org/hu/reservation/controller/AdminControllerTest.java
-/home/jack/reservation-api/src/test/java/org/hu/reservation/controller/AuthControllerTest.java
-/home/jack/reservation-api/src/test/java/org/hu/reservation/controller/ReservationControllerTest.java
-/home/jack/reservation-api/src/test/java/org/hu/reservation/controller/StaffControllerTest.java
-/home/jack/reservation-api/src/test/java/org/hu/reservation/filter/JwtAuthFilterTest.java
-/home/jack/reservation-api/src/test/java/org/hu/reservation/service/JwtServiceTest.java
-/home/jack/reservation-api/src/test/java/org/hu/reservation/service/ReservationServiceTest.java
-/home/jack/reservation-api/src/test/java/org/hu/reservation/service/StaffInfoServiceTest.java

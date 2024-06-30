@@ -1,9 +1,0 @@
-org/hu/reservation/controller/StaffControllerTest.class
-org/hu/reservation/service/JwtServiceTest.class
-org/hu/reservation/controller/AdminControllerTest.class
-org/hu/reservation/service/StaffInfoServiceTest.class
-org/hu/reservation/filter/JwtAuthFilterTest.class
-org/hu/reservation/service/ReservationServiceTest.class
-org/hu/reservation/controller/AuthControllerTest.class
-org/hu/reservation/SecurityTestConfig.class
-org/hu/reservation/controller/ReservationControllerTest.class

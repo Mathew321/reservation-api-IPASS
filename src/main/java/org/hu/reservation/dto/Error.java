@@ -3,7 +3,7 @@ package org.hu.reservation.dto;
 public class Error {
 
     private String error;
-    private String detailedMessage;
+    private String detailedMessage = "";
 
     // Constructors
     public Error() {

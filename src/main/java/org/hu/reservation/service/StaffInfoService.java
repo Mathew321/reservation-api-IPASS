@@ -1,7 +1,7 @@
 package org.hu.reservation.service;
 
 import org.hu.reservation.entity.StaffInfo;
-import org.hu.reservation.entity.StaffInfoDetails;
+import org.hu.reservation.dto.StaffInfoDetails;
 import org.hu.reservation.repository.StaffInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -84,10 +84,4 @@ class AdminControllerTest {
                 .andExpect(jsonPath("$.freeTablesEvening", is(4)));
     }
 
-    @Test
-    @WithMockUser(authorities = "ROLE_ADMIN")
-    void testGetReservationsUnauthorized() throws Exception {
-        // This test will automatically pass since we are using @WithMockUser with ROLE_ADMIN in other tests
-        // You may want to add additional tests for different roles and unauthorized access cases
-    }
 }
