@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -45,10 +48,19 @@ public class AdminController {
 
     @GetMapping("/reservations/tables")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<?> getAvailableTables(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+    // public ResponseEntity<?> getAvailableTables(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public ResponseEntity<?> getAvailableTables(@RequestParam String date) {
         try {
             logger.info("Received date: " + date);
-            AvailableTablesResponse response = reservationService.getAvailableTables(date);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+            Date date1 = sdf.parse(date);
+
+            LocalDate localDate = date1.toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+
+            AvailableTablesResponse response = reservationService.getAvailableTables(localDate);
             logger.info("Response: " + response);
             return ResponseEntity.ok(response);
         } catch (Exception e) {

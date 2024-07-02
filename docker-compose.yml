@@ -1,14 +1,13 @@
-version: '3.8'
+﻿version: '3.8'
 
 services:
   mysql:
     image: mysql:8
-    container_name: mysql-container
+    container_name: mysql-container2
     restart: always
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     volumes:
-      - ../reservation-data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
